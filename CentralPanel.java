@@ -8,10 +8,7 @@ import java.time.LocalTime;
 import java.util.Calendar;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-
 
 public class CentralPanel extends JFrame
 {
@@ -19,7 +16,7 @@ public class CentralPanel extends JFrame
 	private static final long serialVersionUID = 1L;
 	JTextField timeInputField;
 
-	public CentralPanel() throws InterruptedException 
+	public CentralPanel() // throws InterruptedException
 	{
 		timeInputField = new JTextField();
 
@@ -28,64 +25,33 @@ public class CentralPanel extends JFrame
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
-	public void checkTime()
+
+	public String getCurrentTime()
 	{
-		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("kk:mm:ss");
+		Calendar calendar = Calendar.getInstance();
+
+		String currentTime = dateFormat.format(calendar.getTime());
+
+		return currentTime;
 	}
-	
-    public static void main(String[] args) 
-    {
-        SwingUtilities.invokeLater(new Runnable() 
-        {
-            @Override
-            public void run() 
-            {
-                String alarmTime = JOptionPane.showInputDialog(null, "Enter your desired time (24 hr format) (HH:MM:SS)"); 
-                SimpleDateFormat formatter = new SimpleDateFormat("kk:mm:ss"); // 24 hr format
-                
-                Time timeValue = null;
-				try 
-				{
-					timeValue = new Time(formatter.parse(alarmTime).getTime());
-					LocalTime converted = timeValue.toLocalTime();
-					System.out.println(LocalTime.now().isAfter( converted ));
-				} 
-				catch (ParseException e) 
-				{
-					//e.printStackTrace();
-					System.out.println("Invalid Input!");
-					
-				}
-				
-                System.out.println("Your desired time: " + timeValue);
-                
-                SimpleDateFormat dateFormat = new SimpleDateFormat("kk:mm:ss");
-                Calendar calendar = Calendar.getInstance();
-              
-                String currentTime = dateFormat.format(calendar.getTime());
-                
-                System.out.println("Current time: "+ currentTime);
-                
-        		
-                
-                
-                /*
-                if (timeValue.toString().equals(currentTime))
-                {
-                	System.out.println("The times are equal");
-                }
-                else
-                {
-                	System.out.println("The times are not equal");
-                }
-                
-                LocalTime mine = LocalTime.now();
-                System.out.println(mine);
-                */
-                
-            }
-        });
-    }
+
+	public boolean verifyTime(String alarmTime)
+	{
+		Time timeValue = null;
+		SimpleDateFormat formatter = new SimpleDateFormat("kk:mm:ss"); // 24 hr format
+		try
+		{
+			timeValue = new Time(formatter.parse(alarmTime).getTime());
+		} catch (ParseException e)
+		{
+			// e.printStackTrace();
+			System.out.print("Invalid input, please try again.");
+		}
+
+		LocalTime converted = timeValue.toLocalTime();
+
+		return (LocalTime.now().isBefore(converted));
+	}
 
 }
