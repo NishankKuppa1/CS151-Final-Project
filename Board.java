@@ -130,6 +130,11 @@ public class Board extends JPanel implements ActionListener {
             dots++;
             locateApple();
         }
+
+        if(dots == 10)
+        {
+            inGame = false;
+        }
     }
 
     private void move() {
