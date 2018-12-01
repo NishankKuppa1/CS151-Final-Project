@@ -31,6 +31,12 @@ public class AlarmRinging extends JFrame
 			public void actionPerformed(ActionEvent arg0)
 			{
 				// LAUNCH SNAKE GAME
+				  EventQueue.invokeLater(() -> {
+		            JFrame ex = new Snake();
+		            ex.setVisible(true);
+		        });
+		        
+			
 			}
 			
 		});
