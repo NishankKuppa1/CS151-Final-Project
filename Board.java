@@ -1,3 +1,12 @@
+
+/**
+ * Code modified from Zetcode.com Author Jan Bodner
+ * http://zetcode.com/tutorials/javagamestutorial/snake/?fbclid=IwAR3h84Q5aMnLCI4__OAeKchoXRohSirxb01QogPVMukiOxRg-POtN34A2rQ
+ * 
+ * Javacode authors: Nishank Kuppa, Ruchika Kotha, Areeb Yaqub 
+ */
+
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -21,6 +30,7 @@ public class Board extends JPanel implements ActionListener {
     private final int ALL_DOTS = 900;
     private final int RAND_POS = 29;
     private final int DELAY = 140;
+    private final int WIN_CONDITION = 10;
 
     private final int x[] = new int[ALL_DOTS];
     private final int y[] = new int[ALL_DOTS];
@@ -106,10 +116,16 @@ public class Board extends JPanel implements ActionListener {
 
             Toolkit.getDefaultToolkit().sync();
 
-        } else {
-
-            gameOver(g);
+        } 
+        else if (dots == WIN_CONDITION) 
+        {
+            
+            winGame(g);
         }        
+        else
+        {
+            gameOver(g);
+        }
     }
 
     private void gameOver(Graphics g) {
@@ -121,6 +137,23 @@ public class Board extends JPanel implements ActionListener {
         g.setColor(Color.white);
         g.setFont(small);
         g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
+        
+        
+       
+    }
+    
+ private void winGame(Graphics g) {
+        
+        String msg = "You won! Now get up!";
+        Font small = new Font("Helvetica", Font.BOLD, 14);
+        FontMetrics metr = getFontMetrics(small);
+
+        g.setColor(Color.white);
+        g.setFont(small);
+        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
+        
+        
+       
     }
 
     private void checkApple() {
@@ -130,8 +163,8 @@ public class Board extends JPanel implements ActionListener {
             dots++;
             locateApple();
         }
-
-        if(dots == 10)
+        
+        if(dots == WIN_CONDITION)
         {
             inGame = false;
         }
