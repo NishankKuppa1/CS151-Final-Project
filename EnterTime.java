@@ -30,7 +30,6 @@ public class EnterTime extends JFrame
 	 */
 	public EnterTime() // throws InterruptedException
 	{
-		String userEnteredTime = JOptionPane.showInputDialog("Enter your desired time (24 hr format) (HH:MM:SS)");
 
 		timeInputField = new JTextField();
 

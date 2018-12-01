@@ -4,6 +4,8 @@ import javax.swing.JOptionPane;
 
 public class ProgramTester 
 {
+	
+	
 	public static void main(String[] args) 
     {	
 		EnterTime testProgram = new EnterTime();
