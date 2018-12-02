@@ -24,12 +24,12 @@ import javax.swing.Timer;
 
 public class Board extends JPanel implements ActionListener {
 
-    private final int B_WIDTH = 300;
-    private final int B_HEIGHT = 300;
-    private final int DOT_SIZE = 10;
-    private final int ALL_DOTS = 900;
-    private final int RAND_POS = 29;
-    private final int DELAY = 140;
+    private final int B_WIDTH = 300;  //width of board panel
+    private final int B_HEIGHT = 300; //height of board panel
+    private final int DOT_SIZE = 10;  //size of the snake
+    private final int ALL_DOTS = 900; //all possible dots on the board
+    private final int RAND_POS = 29;  // random starting position
+    private final int DELAY = 140;    // time delay between movement
     private final int WIN_CONDITION = 10;
 
     private final int x[] = new int[ALL_DOTS];
@@ -39,7 +39,8 @@ public class Board extends JPanel implements ActionListener {
     private int apple_x;
     private int apple_y;
 
-    private boolean leftDirection = false;
+    // movement determiners
+    private boolean leftDirection = false;   
     private boolean rightDirection = true;
     private boolean upDirection = false;
     private boolean downDirection = false;
@@ -52,9 +53,13 @@ public class Board extends JPanel implements ActionListener {
 
     public Board() {
         
-        initBoard();
+        initBoard(); //start
     }
     
+    /**
+     *  The start of the game, helps to initialize all the varibles on the board
+     *
+     */
     private void initBoard() {
 
         addKeyListener(new TAdapter());
@@ -66,6 +71,11 @@ public class Board extends JPanel implements ActionListener {
         initGame();
     }
 
+
+    /**
+     *  gets the images that are provided in the location.
+     *  has a head, body and apple image
+     */
     private void loadImages() {
 
         ImageIcon iid = new ImageIcon("src/dot.png");
@@ -78,6 +88,11 @@ public class Board extends JPanel implements ActionListener {
         head = iih.getImage();
     }
 
+    /**
+     *  main initializer method to set up the board
+     *  sets up the snake, the randomized apple, and a timer.  
+     * 
+     */
     private void initGame() {
 
         dots = 3;
@@ -92,14 +107,23 @@ public class Board extends JPanel implements ActionListener {
         timer = new Timer(DELAY, this);
         timer.start();
     }
-
+    
+     /**
+     *  calls method to place images and update board
+     *   
+     * 
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         doDrawing(g);
     }
-    
+     /**
+     *  updates the board with new apple locations and decides
+     *  whether game has been won or is over. 
+     * 
+     */
     private void doDrawing(Graphics g) {
         
         if (inGame) {
@@ -128,6 +152,10 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
+     /**
+     *  Creates game over scene when game has been lost.
+     * 
+     */
     private void gameOver(Graphics g) {
         
         String msg = "Game Over";
@@ -142,7 +170,11 @@ public class Board extends JPanel implements ActionListener {
        
     }
     
- private void winGame(Graphics g) {
+    /**
+     *  creates game won scene when game has been won. 
+     * 
+     */
+    private void winGame(Graphics g) {
         
         String msg = "You won! Now get up!";
         Font small = new Font("Helvetica", Font.BOLD, 14);
@@ -156,6 +188,10 @@ public class Board extends JPanel implements ActionListener {
        
     }
 
+    /**
+     *  Checks when an apple has been eaten and to increase snake length appropriately.
+     * 
+     */
     private void checkApple() {
 
         if ((x[0] == apple_x) && (y[0] == apple_y)) {
@@ -170,6 +206,10 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
+     /**
+     *  Allows for the snake movement to be detected and recreated accordingly.
+     * 
+     */
     private void move() {
 
         for (int z = dots; z > 0; z--) {
@@ -194,6 +234,10 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
+     /**
+     *  checks if snake has hit a wall or itself. 
+     * 
+     */
     private void checkCollision() {
 
         for (int z = dots; z > 0; z--) {
@@ -224,6 +268,10 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
+     /**
+     *  The method that randomizes the apple location
+     * 
+     */
     private void locateApple() {
 
         int r = (int) (Math.random() * RAND_POS);
@@ -233,6 +281,10 @@ public class Board extends JPanel implements ActionListener {
         apple_y = ((r * DOT_SIZE));
     }
 
+    /**
+     *  repaints the board after each checking cycle.   
+     * 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -246,6 +298,10 @@ public class Board extends JPanel implements ActionListener {
         repaint();
     }
 
+     /**
+     *  an inner class adapter to allow for keys on a keyboard to be utilized for the game movement. 
+     * 
+     */
     private class TAdapter extends KeyAdapter {
 
         @Override
