@@ -6,13 +6,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
- * The first panel, where the user enters their desired time, and the associated
+ * The default panel (where the user enters their desired time) and the associated
  * methods
  * 
  * @author Nishank Kuppa
@@ -22,21 +23,22 @@ public class EnterTime extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	JTextField timeInputField;
-	SimpleDateFormat formatter = new SimpleDateFormat("kk:mm:ss"); // Format the time in hours:minutes:seconds (24 hour
-																	// format)
+	SimpleDateFormat formatter = new SimpleDateFormat("kk:mm"); // Format the time in hours:minutes (24 hr format)
+																	
 
 	/**
 	 * Sets up the panel to enter the desired time
 	 */
 	public EnterTime() // throws InterruptedException
 	{
-
+		/*
 		timeInputField = new JTextField();
 
 		add(timeInputField, BorderLayout.NORTH);
 		pack();
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		*/
 	}
 
 	/**
@@ -105,6 +107,14 @@ public class EnterTime extends JFrame
 
 	/*
 	 * public void run() { EnterTime testProgram = new EnterTime(); }
+	 * 
+	 * // Get the current time 
+		GregorianCalendar currentTime = new GregorianCalendar();
+		int hours = currentTime.get(Calendar.HOUR);
+		int minutes = currentTime.get(Calendar.MINUTE);
+		int seconds = currentTime.get(Calendar.SECOND);
+		System.out.println(hours + ":" + minutes + ":" + seconds);
 	 */
+	
 
 }
