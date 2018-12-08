@@ -44,7 +44,7 @@ public class EnterTime extends JFrame
 	/**
 	 * Returns the current time (to compare with the desired time)
 	 * 
-	 * @return
+	 * @return currentTime which will return the current time
 	 */
 	public String getCurrentTime()
 	{
