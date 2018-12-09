@@ -4,7 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,8 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- * This frame shows up when the alarm is ringing
- * User has to either dismiss or snooze the alarm
+ * This frame shows up when the alarm is ringing User has to either dismiss or
+ * snooze the alarm
  * 
  * @author Nishank Kuppa, Areeb Yaqub, Ruchika Kotha
  *
@@ -21,6 +25,7 @@ import javax.swing.JPanel;
 public class AlarmRinging extends JFrame
 {
 	private static final long serialVersionUID = 1L;
+	boolean playAlarm = true;
 
 	public AlarmRinging()
 	{
@@ -48,19 +53,19 @@ public class AlarmRinging extends JFrame
 		JButton snooze = new JButton("Snooze");
 		snooze.addActionListener(new ActionListener()
 		{
-
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
 				// DISPLAY AFTER 5 MINS
-				JOptionPane.showMessageDialog(null, "Alarm snoozed for 5 minutes","Snooze Notification", JOptionPane.ERROR_MESSAGE);
-				
+				JOptionPane.showMessageDialog(null, "Alarm snoozed for 5 minutes", "Snooze Notification",
+						JOptionPane.ERROR_MESSAGE);
+				playAlarm = false;
 				try
 				{
-					Thread.sleep(3000);   		// 3 seconds = 3000 milliseconds
-					//Thread.sleep(300000);		// 5 minutes = 300000 milliseconds  
-				} 
-				catch (InterruptedException e)
+					
+					Thread.sleep(1000);
+					// Thread.sleep(300000); // 5 minutes = 300000 milliseconds
+				} catch (InterruptedException e)
 				{
 					e.printStackTrace();
 				}
@@ -83,7 +88,37 @@ public class AlarmRinging extends JFrame
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		//playSound();
+		System.out.println(playAlarm);
 
 	}
+	
+	/*
+	
+	// Plays an annoying alarm sound
+	public void playSound()
+	{
+		if (playAlarm == true)
+		{
+			try
+			{
+				AudioInputStream audioInputStream = AudioSystem
+						.getAudioInputStream(new File("alarmFile.wav").getAbsoluteFile());
+				Clip clip = AudioSystem.getClip();
+				clip.open(audioInputStream);
+				clip.start();
+			} 
+			catch (Exception e)
+			{
+				System.out.println("Could not play audio");
+			}
+		}
+		else
+		{
+			return;
+		}
+	}
+	*/
 
 }
