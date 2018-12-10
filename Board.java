@@ -31,7 +31,7 @@ public class Board extends JPanel implements ActionListener
 	private final int ALL_DOTS = 900; // all possible dots on the board
 	private final int RAND_POS = 29; // random starting position
 	private final int DELAY = 140; // time delay between movement
-	private final int WIN_CONDITION = 10;
+	private int winCondtition = 10;
 
 	private final int x[] = new int[ALL_DOTS];
 	private final int y[] = new int[ALL_DOTS];
