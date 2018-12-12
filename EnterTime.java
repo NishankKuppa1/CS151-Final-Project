@@ -96,6 +96,7 @@ public class EnterTime extends JFrame
 			/**
 			 * PRONE TO BUGS
 			 */
+			
 			LocalTime converted = timeValue.toLocalTime();
 
 			// compare the two times
