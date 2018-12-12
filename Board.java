@@ -22,7 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Board extends JPanel implements ActionListener
+public class Board extends JPanel implements ActionListener, GameMethods
 {
 
 	private final int B_WIDTH = 300; // width of board panel
@@ -31,7 +31,7 @@ public class Board extends JPanel implements ActionListener
 	private final int ALL_DOTS = 900; // all possible dots on the board
 	private final int RAND_POS = 29; // random starting position
 	private final int DELAY = 140; // time delay between movement
-	private int winCondtition = 10;
+	private int winCondition = 10;
 
 	private final int x[] = new int[ALL_DOTS];
 	private final int y[] = new int[ALL_DOTS];
@@ -54,7 +54,6 @@ public class Board extends JPanel implements ActionListener
 
 	public Board()
 	{
-
 		initializeBoard(); // start
 	}
 
@@ -62,7 +61,7 @@ public class Board extends JPanel implements ActionListener
 	 * The start of the game, helps to initialize all the variables on the board
 	 *
 	 */
-	private void initializeBoard()
+	public void initializeBoard()
 	{
 
 		addKeyListener(new TAdapter());
@@ -78,7 +77,7 @@ public class Board extends JPanel implements ActionListener
 	 * gets the images that are provided in the location. has a head, body and apple
 	 * image
 	 */
-	private void loadImages()
+	public void loadImages()
 	{
 
 		ImageIcon snakeBody = new ImageIcon("src/dot.png");
@@ -96,7 +95,7 @@ public class Board extends JPanel implements ActionListener
 	 * apple, and a timer.
 	 * 
 	 */
-	private void initGame()
+	public void initGame()
 	{
 
 		dots = 3;
@@ -131,7 +130,7 @@ public class Board extends JPanel implements ActionListener
 	 * won or is over.
 	 * 
 	 */
-	private void doDrawing(Graphics g)
+	public void doDrawing(Graphics g)
 	{
 
 		if (inGame)
@@ -152,7 +151,7 @@ public class Board extends JPanel implements ActionListener
 
 			Toolkit.getDefaultToolkit().sync();
 
-		} else if (dots == WIN_CONDITION)
+		} else if (dots == winCondition)
 		{
 
 			winGame(g);
@@ -166,7 +165,7 @@ public class Board extends JPanel implements ActionListener
 	 * Creates game over scene when game has been lost.
 	 * 
 	 */
-	private void gameOver(Graphics g)
+	public void gameOver(Graphics g)
 	{
 
 		String msg = "Game Over";
@@ -183,7 +182,7 @@ public class Board extends JPanel implements ActionListener
 	 * creates game won scene when game has been won.
 	 * 
 	 */
-	private void winGame(Graphics g)
+	public void winGame(Graphics g)
 	{
 
 		String msg = "You won! Now get up!";
@@ -211,7 +210,7 @@ public class Board extends JPanel implements ActionListener
 			appleLocation();
 		}
 
-		if (dots == WIN_CONDITION)
+		if (dots == winCondition)
 		{
 			inGame = false;
 		}
@@ -221,7 +220,7 @@ public class Board extends JPanel implements ActionListener
 	 * Allows for the snake movement to be detected and recreated accordingly.
 	 * 
 	 */
-	private void move()
+	public void move()
 	{
 
 		for (int z = dots; z > 0; z--)
@@ -255,7 +254,7 @@ public class Board extends JPanel implements ActionListener
 	 * checks if snake has hit a wall or itself.
 	 * 
 	 */
-	private void checkCollision()
+	public void checkCollision()
 	{
 
 		for (int z = dots; z > 0; z--)
