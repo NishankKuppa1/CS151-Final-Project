@@ -2,6 +2,12 @@ package master;
 
 import javax.swing.JOptionPane;
 
+/**
+ * Runs the snake alarm program
+ * Enter a time when prompted
+ * @author Nishank Kuppa, Areeb Yaqub, Ruchika Kotha
+ *
+ */
 public class ProgramTester 
 {
 	public static void main(String[] args) 
@@ -15,13 +21,15 @@ public class ProgramTester
         System.out.println("Current time: "+ currentTime);
         System.out.println("Should alarm go off? " + testProgram.equals(userEnteredTime));
         
+        
         if (testProgram.equals(userEnteredTime) == true)
         {
         	new AlarmRinging();
         }
         else
         {
-        	JOptionPane.showMessageDialog(null, "Not time to wake up yet",null, JOptionPane.ERROR_MESSAGE);
+        	JOptionPane.showMessageDialog(null, "Not time to wake up yet, please wait",null, JOptionPane.ERROR_MESSAGE);
         }
+        
     }
 }

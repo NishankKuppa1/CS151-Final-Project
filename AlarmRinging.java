@@ -24,8 +24,9 @@ import javax.swing.JPanel;
  */
 public class AlarmRinging extends JFrame
 {
+	private final int SNOOZE_DURATION = 5;	// seconds
 	private static final long serialVersionUID = 1L;
-	boolean playAlarm = true;
+	public static Clip clip;
 
 	public AlarmRinging()
 	{
@@ -56,19 +57,12 @@ public class AlarmRinging extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
+				
 				// DISPLAY AFTER 5 MINS
-				JOptionPane.showMessageDialog(null, "Alarm snoozed for 5 minutes", "Snooze Notification",
+				JOptionPane.showMessageDialog(null, "Alarm will snooze for " + SNOOZE_DURATION + " seconds after OK is pressed", "Snooze Notification",
 						JOptionPane.ERROR_MESSAGE);
-				playAlarm = false;
-				try
-				{
-					
-					Thread.sleep(1000);
-					// Thread.sleep(300000); // 5 minutes = 300000 milliseconds
-				} catch (InterruptedException e)
-				{
-					e.printStackTrace();
-				}
+				run();
+				
 			}
 
 		});
@@ -88,37 +82,44 @@ public class AlarmRinging extends JFrame
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		//playSound();
-		System.out.println(playAlarm);
+
+		playSound();
 
 	}
-	
-	/*
-	
+
 	// Plays an annoying alarm sound
-	public void playSound()
+	public synchronized void playSound()
 	{
-		if (playAlarm == true)
+
+		try
 		{
-			try
-			{
-				AudioInputStream audioInputStream = AudioSystem
-						.getAudioInputStream(new File("alarmFile.wav").getAbsoluteFile());
-				Clip clip = AudioSystem.getClip();
-				clip.open(audioInputStream);
-				clip.start();
-			} 
-			catch (Exception e)
-			{
-				System.out.println("Could not play audio");
-			}
-		}
-		else
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/alarmFile.wav").getAbsoluteFile());
+			clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start();
+			clip.loop(20);
+		} catch (Exception e)
 		{
-			return;
+			System.out.println("Could not play audio");
 		}
 	}
-	*/
-
+	
+	// Snooze functionality
+	public void run()
+	{
+		try
+		{
+			clip.stop();
+			Thread.sleep(SNOOZE_DURATION*1000);
+			clip.start();
+			clip.loop(20);
+			
+			// Thread.sleep(300000); // 5 minutes = 300000 milliseconds
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
 }

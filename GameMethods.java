@@ -2,6 +2,12 @@ package master;
 
 import java.awt.Graphics;
 
+/**
+ * An interface that defines common methods for games
+ * This interface can be used to implement other games for this advanced alarm clock
+ * @author Nishank Kuppa, Ruchika Kotha, Areeb Yaqub
+ *
+ */
 public interface GameMethods
 {
 	 void initializeBoard();

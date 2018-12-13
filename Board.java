@@ -22,6 +22,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+/**
+ * Main panel that contains the Snake game
+ * @author Nishank Kuppa, Areeb Yaqub, Ruchika Kotha
+ *
+ */
 public class Board extends JPanel implements ActionListener, GameMethods
 {
 
@@ -192,7 +197,7 @@ public class Board extends JPanel implements ActionListener, GameMethods
 		g.setColor(Color.white);
 		g.setFont(small);
 		g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
-
+		
 	}
 
 	/**

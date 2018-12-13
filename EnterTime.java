@@ -1,29 +1,34 @@
 package master;
 
-import java.awt.BorderLayout;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
  * The default panel (where the user enters their desired time) and the associated
  * methods
  * 
- * @author Nishank Kuppa
+ * @author Nishank Kuppa, Areeb Yaqub, Ruchika Kotha
  *
  */
-public class EnterTime extends JFrame
+public class EnterTime extends JFrame implements Serializable 
 {
 	private static final long serialVersionUID = 1L;
 	JTextField timeInputField;
 	SimpleDateFormat formatter = new SimpleDateFormat("kk:mm"); // Format the time in hours:minutes (24 hr format)
+	private ArrayList<String> inputs;
+	private String userEnteredTime;
 																	
 
 	/**
@@ -58,10 +63,7 @@ public class EnterTime extends JFrame
 	}
 
 	/**
-	 * Check if the desired time matches the current time
-	 * 
-	 * @param alarmTime
-	 * @return
+	 * Check if entered alarm time matches current time
 	 */
 	@Override
 	public boolean equals(Object o)
@@ -85,7 +87,8 @@ public class EnterTime extends JFrame
 			{
 				// format the inputted alarm time into a Time object
 				timeValue = new Time(formatter.parse(alarmTime).getTime());
-			} catch (ParseException e)
+			} 
+			catch (ParseException e)
 			{
 				// e.printStackTrace();
 				System.out.println("Invalid input, please try again.");
@@ -93,10 +96,6 @@ public class EnterTime extends JFrame
 			}
 
 			// convert the Time object to a LocalTime object
-			/**
-			 * PRONE TO BUGS
-			 */
-			
 			LocalTime converted = timeValue.toLocalTime();
 
 			// compare the two times
@@ -105,17 +104,29 @@ public class EnterTime extends JFrame
 		}
 		return false;
 	}
-
-	/*
-	 * public void run() { EnterTime testProgram = new EnterTime(); }
-	 * 
-	 * // Get the current time 
-		GregorianCalendar currentTime = new GregorianCalendar();
-		int hours = currentTime.get(Calendar.HOUR);
-		int minutes = currentTime.get(Calendar.MINUTE);
-		int seconds = currentTime.get(Calendar.SECOND);
-		System.out.println(hours + ":" + minutes + ":" + seconds);
+	
+	/**
+	 * Implements serializable
 	 */
+	public void export()
+	{
+		try
+		{
+			inputs = new ArrayList<>();
+			inputs.add(userEnteredTime);
+			ObjectOutputStream out = new ObjectOutputStream( new FileOutputStream("exportedInfo.dat"));
+			out.writeObject(inputs);
+			out.close();
+		} catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 
 }
