@@ -1,4 +1,4 @@
-# Please ensure that apple.png, dot.png, head.png, and alarmFile.wav are in the src folder when executed. 
+# Please ensure that apple.png, dot.png, head.png, and alarmFile.wav are in the src folder when executed. Create a package called master.
 
 Alarm Clock Snake
 
