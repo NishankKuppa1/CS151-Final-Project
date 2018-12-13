@@ -1,5 +1,7 @@
 # Please ensure that apple.png, dot.png, head.png, and alarmFile.wav are in the src folder when executed. 
 
+Alarm Clock Snake
+
 Nishank Kuppa, Areeb Yaqub, Ruchika Kotha
 
 CS 151 Section 6 - Professor Yeung
